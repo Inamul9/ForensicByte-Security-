@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - QUICK MAXXX</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--background-primary);
+        }
+
+        .login-card {
+            background: var(--background-secondary);
+            padding: 3rem;
+            border-radius: 16px;
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 40px var(--shadow-color-light);
+            border: 1px solid var(--border-color);
+        }
+
+        .login-header {
+            margin-bottom: 2rem;
+        }
+
+        .login-header .nav-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .login-header .nav-logo i {
+            font-size: inherit;
+            margin: 0;
+        }
+
+        .login-header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .login-header p {
+            color: var(--text-secondary);
+        }
+
+        .btn-discord {
+            background: #5865F2;
+            color: white;
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn-discord i {
+            margin: 0; /* Use gap from .btn class instead */
+        }
+
+        .login-footer p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .login-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <main class="login-page">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="nav-logo">
+                    <i class="fab fa-discord"></i>
+                    <span>QUICK MAXXX</span>
+                </div>
+                <h1>Dashboard Login</h1>
+                <p>Please log in with Discord to continue.</p>
+            </div>
+            
+            <a href="/auth/discord" class="btn btn-discord">
+                <i class="fab fa-discord"></i>
+                Login with Discord
+            </a>
+
+            <div class="login-footer">
+                <p><a href="/">← Go back to Home</a></p>
+            </div>
+        </div>
+    </main>
+</body>
+</html> 

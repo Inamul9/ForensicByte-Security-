@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - QUICK MAXXX</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Background Elements */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(30px);
+            opacity: 0.2;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            top: 60%;
+            right: 15%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            bottom: 20%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .orb-4 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(45deg, #ffecd2, #fcb69f);
+            top: 30%;
+            right: 30%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+            66% {
+                transform: translateY(15px) rotate(240deg);
+            }
+        }
+
+        /* Glowing Grid */
+        .glow-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 30s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        /* Enhanced Dashboard Styles */
+        .dashboard-user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-user-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .user-info img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .user-info h2 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .user-info h2 span {
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+        
+        .dashboard {
+            padding: 120px 0 80px;
+            background: transparent;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+            background: linear-gradient(45deg, #fff, #a8edea, #fed6e3);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .dashboard-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #a8edea, #fed6e3);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .dashboard-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-color-light));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            box-shadow: 0 0 15px rgba(76, 205, 196, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover .card-icon {
+            transform: rotate(360deg) scale(1.05);
+            box-shadow: 0 0 20px rgba(76, 205, 196, 0.5);
+        }
+        
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-content {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .server-select {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .server-select::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .server-select:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .server-select h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+        
+        .server-dropdown {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+        }
+        
+        .server-dropdown:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(76, 205, 196, 0.3);
+            transform: scale(1.01);
+        }
+        
+        .coming-soon {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .coming-soon i {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(76, 205, 196, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .coming-soon h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+        }
+        
+        .coming-soon p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-item i {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+            text-shadow: 0 0 8px rgba(76, 205, 196, 0.3);
+        }
+
+        .toggle-switch {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .toggle-switch label {
+            font-weight: 600;
+            color: var(--text-primary);
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 28px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.08);
+            transition: .4s;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(76, 205, 196, 0.3);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(22px);
+        }
+
+        .setting-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.08);
+        }
+
+        .dashboard-main-content {
+            display: grid;
+            grid-template-columns: 2.5fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stats-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            height: fit-content;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #a8edea);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .stats-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stats-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stats-header img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
+        }
+
+        .stats-header h3 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .stats-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .stats-item:last-child {
+            border-bottom: none;
+        }
+
+        .stats-label {
+            color: var(--text-secondary);
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.08);
+        }
+
+        .stats-value {
+            font-weight: 700;
+            color: var(--text-primary);
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        #memberChartContainer {
+            margin-top: 1.5rem;
+            position: relative;
+            height: 200px;
+        }
+
+        /* Enhanced Button Styles */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-main-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Particle Effects */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Much more subtle dashboard-specific styles - further reduced */
+        .dashboard-container {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.02); /* Further reduced from 0.05 */
+            margin-bottom: 1rem;
+        }
+
+        .dashboard-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.01); /* Further reduced from 0.03 */
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .config-section {
+            background: rgba(255, 255, 255, 0.005); /* Further reduced from 0.01 */
+            backdrop-filter: blur(3px); /* Further reduced from 6px */
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.015); /* Further reduced from 0.03 */
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); /* Further reduced from 1px 4px */
+        }
+
+        .config-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.01); /* Further reduced from 0.03 */
+        }
+
+        .toggle-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.003); /* Further reduced from 0.005 */
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.01); /* Further reduced from 0.02 */
+            transition: all 0.3s ease;
+        }
+
+        .toggle-item:hover {
+            background: rgba(255, 255, 255, 0.005); /* Further reduced from 0.008 */
+            border-color: rgba(255, 255, 255, 0.02); /* Further reduced from 0.04 */
+            transform: translateY(-1px);
+        }
+
+        .toggle-label {
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .toggle-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Much more subtle toggle switch - further reduced */
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: var(--primary-color);
+            box-shadow: 0 0 2px rgba(76, 205, 196, 0.05); /* Further reduced from 0.1 */
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05); /* Further reduced from 1px 2px */
+        }
+
+        .toggle-switch.active::before {
+            transform: translateX(26px);
+        }
+
+        .server-select {
+            background: rgba(255, 255, 255, 0.005); /* Further reduced from 0.01 */
+            border: 1px solid rgba(255, 255, 255, 0.015); /* Further reduced from 0.03 */
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(2px); /* Further reduced from 4px */
+        }
+
+        .server-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 1px rgba(76, 205, 196, 0.05); /* Further reduced from 0.1 */
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.005); /* Further reduced from 0.01 */
+            backdrop-filter: blur(3px); /* Further reduced from 6px */
+            border: 1px solid rgba(255, 255, 255, 0.015); /* Further reduced from 0.03 */
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            color: var(--text-primary);
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03); /* Further reduced from 2px 6px */
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-left: 4px solid var(--success-color);
+        }
+
+        .notification.error {
+            border-left: 4px solid var(--error-color);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid var(--primary-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Much more subtle floating orbs for dashboard - further reduced */
+        .dashboard-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(4px); /* Further reduced from 8px */
+            opacity: 0.02; /* Further reduced from 0.04 */
+            animation: dashboardFloat 30s ease-in-out infinite;
+        }
+
+        .dashboard-orb-1 {
+            width: 40px; /* Further reduced from 60px */
+            height: 40px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            top: 15%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .dashboard-orb-2 {
+            width: 25px; /* Further reduced from 40px */
+            height: 25px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            top: 70%;
+            right: 10%;
+            animation-delay: -8s;
+        }
+
+        @keyframes dashboardFloat {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-2px) rotate(120deg); /* Further reduced from -4px */
+            }
+            66% {
+                transform: translateY(1px) rotate(240deg); /* Further reduced from 3px */
+            }
+        }
+
+        /* Contact Section Styles */
+        .contact-section {
+            padding: 2rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .contact-card:hover::before {
+            left: 100%;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-color-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 12px rgba(76, 205, 196, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(76, 205, 196, 0.3);
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 4px rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 8px rgba(76, 205, 196, 0.2);
+        }
+
+        .contact-link:hover {
+            color: var(--primary-color-light);
+            text-shadow: 0 0 12px rgba(76, 205, 196, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Enhanced Footer Styles */
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.05);
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.003);
+            border: 1px solid rgba(255, 255, 255, 0.01);
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .social-link:hover {
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.005);
+            border-color: rgba(255, 255, 255, 0.02);
+            transform: translateX(5px);
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.05);
+        }
+
+        .social-link i {
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            padding-top: 2rem;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            margin: 0;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.05);
+        }
+
+        .separator {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-elements">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+        <div class="floating-orb orb-4"></div>
+        <div class="glow-grid"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                    <i class="fab fa-discord"></i>
+                    <span>QUICK MAXXX</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/#features" class="nav-link">Features</a></li>
+                <li><a href="/commands" class="nav-link">Commands</a></li>
+                <li><a href="/#stats" class="nav-link">Stats</a></li>
+                <li><a href="/#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="/dashboard" class="btn btn-secondary active">Dashboard</a>
+                <a href="https://discord.com/oauth2/authorize?client_id=1386396859261779988&permissions=8&integration_type=0&scope=bot&permissions=8" class="btn btn-primary">Add to Discord</a>
+                    </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                    </div>
+            </div>
+            </nav>
+
+    <!-- Dashboard -->
+    <section class="dashboard">
+        <div class="container">
+            <div class="dashboard-user-header">
+                <div class="user-info">
+                    <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png?size=128" alt="User Avatar">
+                    <h2>Welcome, <span><%= user.username %></span></h2>
+            </div>
+            </div>
+
+            <div class="dashboard-header">
+                <h1>Server Management Dashboard</h1>
+                <p>Manage QUICK MAXXX's settings for your server.</p>
+            </div>
+
+            <!-- Server Selection -->
+            <div class="config-section">
+                <h2 class="config-title">Select Server</h2>
+                <select id="serverSelect" class="server-select">
+                    <option value="">Loading servers...</option>
+                </select>
+            </div>
+
+            <div class="dashboard-main-content">
+                <!-- Dashboard Cards -->
+            <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-hand-sparkles"></i></div>
+                            <h3 class="card-title">Welcome Messages</h3>
+                    </div>
+                        <div class="card-content">
+                            <div class="toggle-group">
+                                <div class="toggle-item">
+                                <div>
+                                        <div class="toggle-label">Welcome Messages</div>
+                                        <div class="toggle-description">Send welcome messages when new members join</div>
+                                </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="welcomeMessages" data-setting="welcomeMessages">
+                                        <span class="slider"></span>
+                                    </label>
+                            </div>
+                                </div>
+                            </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-secondary">Configure</a>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-user-tag"></i></div>
+                            <h3 class="card-title">Auto Roles</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="toggle-group">
+                                <div class="toggle-item">
+                                <div>
+                                        <div class="toggle-label">Auto Role Assignment</div>
+                                        <div class="toggle-description">Automatically assign roles to new members</div>
+                                </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="autoRole" data-setting="autoRole">
+                                        <span class="slider"></span>
+                                    </label>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-secondary">Configure</a>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                            <h3 class="card-title">Moderation Logs</h3>
+                        </div>
+                        <div class="card-content">
+                            <div class="toggle-group">
+                                <div class="toggle-item">
+                                <div>
+                                        <div class="toggle-label">Moderation Logs</div>
+                                        <div class="toggle-description">Log moderation actions to a channel</div>
+                                </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="modLogs" data-setting="modLogs">
+                                        <span class="slider"></span>
+                                    </label>
+                            </div>
+                        </div>
+                    </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-secondary">Configure</a>
+                        </div>
+                </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-music"></i></div>
+                            <h3 class="card-title">Music Controls</h3>
+                    </div>
+                        <div class="card-content">
+                            <div class="toggle-group">
+                                <div class="toggle-item">
+                                    <div>
+                                        <div class="toggle-label">Music Commands</div>
+                                        <div class="toggle-description">Enable music playback features</div>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="music" data-setting="music">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-secondary">Configure</a>
+                    </div>
+                </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                            <h3 class="card-title">Anti-Spam Protection</h3>
+                    </div>
+                        <div class="card-content">
+                            <div class="toggle-group">
+                                <div class="toggle-item">
+                                    <div>
+                                        <div class="toggle-label">Anti-Spam</div>
+                                        <div class="toggle-description">Automatically detect and prevent spam</div>
+                                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="antiSpam" data-setting="antiSpam">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-secondary">Configure</a>
+                    </div>
+                </div>
+
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-user-shield"></i></div>
+                            <h3 class="card-title">Anti-Raid Protection</h3>
+                    </div>
+                        <div class="card-content">
+                            <div class="toggle-group">
+                                <div class="toggle-item">
+                                    <div>
+                                        <div class="toggle-label">Anti-Raid</div>
+                                        <div class="toggle-description">Protect against raid attacks</div>
+                    </div>
+                                    <label class="switch">
+                                        <input type="checkbox" id="antiRaid" data-setting="antiRaid">
+                                        <span class="slider"></span>
+                                    </label>
+                </div>
+            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-secondary">Configure</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Server Stats Sidebar -->
+                <div class="stats-card">
+                    <div class="stats-header">
+                        <% if (guilds.length > 0) { const guild = guilds[0]; %>
+                            <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png?size=128" alt="<%= guild.name %> icon" onerror="this.style.display='none'">
+                            <h3><%= guild.name %></h3>
+            <% } else { %>
+                            <h3>Server Stats</h3>
+                        <% } %>
+                </div>
+
+                    <div class="stats-body">
+                        <div class="stats-item">
+                            <span class="stats-label"><i class="fas fa-users"></i> Total Members</span>
+                            <span class="stats-value" id="memberCount">--</span>
+        </div>
+                        <div class="stats-item">
+                            <span class="stats-label"><i class="fas fa-shield-alt"></i> Roles</span>
+                            <span class="stats-value" id="roleCount">--</span>
+                        </div>
+                        <div class="stats-item">
+                            <span class="stats-label"><i class="fas fa-hashtag"></i> Channels</span>
+                            <span class="stats-value" id="channelCount">--</span>
+                        </div>
+                    </div>
+
+                    <div id="memberChartContainer">
+                        <canvas id="memberChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coming Soon Section -->
+            <div class="coming-soon" style="margin-top: 2rem;">
+                <i class="fas fa-tools"></i>
+                <h2>More Features Coming Soon!</h2>
+                <p>We're hard at work developing exciting new modules for your server. Stay tuned for updates!</p>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="contact-section" style="margin-top: 3rem;">
+                <div class="section-header">
+                    <h2>Need Help?</h2>
+                    <p>Get support and connect with our community</p>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Support</h3>
+                        <p>Our dedicated support team is available around the clock to assist you with any questions or issues.</p>
+                        <a href="#" class="contact-link">Join Support Server</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Documentation</h3>
+                        <p>Comprehensive guides and tutorials to help you set up and configure QUICK MAXXX for your server.</p>
+                        <a href="#" class="contact-link">Read Documentation</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Connect with other server owners and share tips, tricks, and best practices in our community.</p>
+                        <a href="#" class="contact-link">Join Community</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fab fa-discord"></i>
+                        <span>QUICK MAXXX</span>
+                    </div>
+                    <p>The ultimate Discord bot for modern servers. Built with love and powered by cutting-edge technology.</p>
+                    <div class="social-links">
+                        <a href="https://discord.com/" target="_blank" aria-label="Discord" class="social-link">
+                            <i class="fab fa-discord"></i>
+                            <span>Discord</span>
+                        </a>
+                        <a href="https://github.com/" target="_blank" aria-label="Github" class="social-link">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="https://youtube.com/" target="_blank" aria-label="Youtube" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#features">Features</a></li>
+                        <li><a href="/commands">Commands</a></li>
+                        <li><a href="/#stats">Stats</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Discord Server</a></li>
+                        <li><a href="#">Status Page</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">DMCA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 QUICK MAXXX. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="/privacy">Privacy</a>
+                        <span class="separator">•</span>
+                        <a href="/terms">Terms</a>
+                        <span class="separator">•</span>
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const guildsData = JSON.parse('<%- JSON.stringify(guilds || []) %>');
+        
+        // Create particles
+        createParticles();
+        
+        const serverDropdown = document.querySelector('.server-select');
+        if (!serverDropdown) return;
+
+        // Populate server dropdown
+        populateServerDropdown(guildsData);
+
+        const initialGuildId = serverDropdown.value;
+        if (initialGuildId) {
+            updateStats(initialGuildId);
+            loadServerConfig(initialGuildId);
+        }
+
+        serverDropdown.addEventListener('change', function() {
+            const guildId = this.value;
+            if (guildId) {
+                updateStats(guildId);
+                loadServerConfig(guildId);
+            }
+        });
+
+        function populateServerDropdown(guilds) {
+            // Clear existing options
+            serverDropdown.innerHTML = '';
+            
+            if (!guilds || guilds.length === 0) {
+                // No servers available
+                serverDropdown.innerHTML = '<option value="">No servers available</option>';
+                showNoServersMessage();
+                return;
+            }
+
+            // Add default option
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.textContent = 'Select a server...';
+            serverDropdown.appendChild(defaultOption);
+
+            // Add server options
+            guilds.forEach(guild => {
+                const option = document.createElement('option');
+                option.value = guild.id;
+                option.textContent = guild.name;
+                serverDropdown.appendChild(option);
+            });
+
+            // Auto-select first server if only one available
+            if (guilds.length === 1) {
+                serverDropdown.value = guilds[0].id;
+                updateStats(guilds[0].id);
+                loadServerConfig(guilds[0].id);
+            }
+        }
+
+        function showNoServersMessage() {
+            // Update the dashboard content to show a helpful message
+            const dashboardContent = document.querySelector('.dashboard-main-content');
+            if (dashboardContent) {
+                dashboardContent.innerHTML = `
+                    <div class="no-servers-message" style="text-align: center; padding: 3rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px; margin: 2rem 0;">
+                        <i class="fas fa-server" style="font-size: 4rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem;">No Servers Available</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                            We couldn't find any servers where QUICK MAXXX is added and you have management permissions. 
+                            This could be because:
+                        </p>
+                        <ul style="color: var(--text-secondary); margin-bottom: 2rem; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto;">
+                            <li>The bot hasn't been added to your servers yet</li>
+                            <li>You don't have "Manage Server" permissions in the servers where the bot is added</li>
+                            <li>Your Discord account needs to re-authenticate to refresh server permissions</li>
+                        </ul>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <a href="https://discord.com/oauth2/authorize?client_id=1386396859261779988&permissions=8&integration_type=0&scope=bot&permissions=8" 
+                               class="btn btn-primary" style="text-decoration: none;">
+                                <i class="fab fa-discord"></i>
+                                Add QUICK MAXXX to Your Server
+                            </a>
+                            <a href="/auth/discord" class="btn btn-secondary" style="text-decoration: none;">
+                                <i class="fas fa-refresh"></i>
+                                Re-authenticate Discord
+                            </a>
+                            <a href="/" class="btn btn-secondary" style="text-decoration: none;">
+                                <i class="fas fa-home"></i>
+                                Back to Home
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30; // Reduced from 50
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        async function updateStats(guildId) {
+            if (!guildId) {
+                // No guild selected, show placeholder stats
+                const statsHeader = document.querySelector('.stats-header');
+                statsHeader.innerHTML = `
+                    <img src="/default-icon.png" alt="Default server icon">
+                    <h3>Select a Server</h3>
+                `;
+                
+                document.getElementById('memberCount').textContent = '--';
+                document.getElementById('roleCount').textContent = '--';
+                document.getElementById('channelCount').textContent = '--';
+                
+                // Clear chart
+                if (memberChartInstance) {
+                    memberChartInstance.destroy();
+                    memberChartInstance = null;
+                }
+                return;
+            }
+
+            const selectedGuild = guildsData.find(g => g.id === guildId);
+            if (!selectedGuild) {
+                console.error('Selected guild not found in guildsData');
+                return;
+            }
+
+            try {
+                // Fetch real server stats from the bot API
+                const response = await fetch(`/api/server/${guildId}`);
+                const serverStats = await response.json();
+                
+                if (response.ok) {
+                    // Update stats header
+                    const statsHeader = document.querySelector('.stats-header');
+                    const iconUrl = serverStats.icon || '/default-icon.png';
+                    statsHeader.innerHTML = `
+                        <img src="${iconUrl}" alt="${serverStats.name} icon" onerror="this.src='/default-icon.png'">
+                        <h3>${serverStats.name}</h3>
+                    `;
+                    
+                    // Update statistics
+                    document.getElementById('memberCount').textContent = serverStats.memberCount.toLocaleString();
+                    document.getElementById('roleCount').textContent = serverStats.roleCount;
+                    document.getElementById('channelCount').textContent = serverStats.channelCount;
+
+                    // Render chart with real data
+                    renderMemberChart(serverStats.memberCount, serverStats.onlineMembers);
+                } else {
+                    console.error('Failed to fetch server stats:', serverStats.error);
+                    // Fallback to mock data if API fails
+                    updateStatsWithMockData(selectedGuild);
+                }
+            } catch (error) {
+                console.error('Error fetching server stats:', error);
+                // Fallback to mock data if network error
+                updateStatsWithMockData(selectedGuild);
+            }
+        }
+
+        function updateStatsWithMockData(selectedGuild) {
+            // Fallback mock data
+            const mockStats = {
+                memberCount: Math.floor(Math.random() * 500) + 100,
+                roleCount: Math.floor(Math.random() * 20) + 5,
+                channelCount: Math.floor(Math.random() * 30) + 10
+            };
+            
+            const statsHeader = document.querySelector('.stats-header');
+            const iconUrl = selectedGuild.icon ? `https://cdn.discordapp.com/icons/${selectedGuild.id}/${selectedGuild.icon}.png?size=128` : '/default-icon.png';
+            statsHeader.innerHTML = `
+                <img src="${iconUrl}" alt="${selectedGuild.name} icon" onerror="this.src='/default-icon.png'">
+                <h3>${selectedGuild.name}</h3>
+            `;
+            
+            document.getElementById('memberCount').textContent = mockStats.memberCount.toLocaleString();
+            document.getElementById('roleCount').textContent = mockStats.roleCount;
+            document.getElementById('channelCount').textContent = mockStats.channelCount;
+
+            renderMemberChart(mockStats.memberCount);
+        }
+
+        let memberChartInstance;
+        function renderMemberChart(memberCount, onlineMembers = null) {
+            const ctx = document.getElementById('memberChart').getContext('2d');
+            
+            if (memberChartInstance) {
+                memberChartInstance.destroy();
+            }
+
+            // Use real online members data if available, otherwise estimate
+            const online = onlineMembers !== null ? onlineMembers : Math.floor(memberCount * (Math.random() * 0.4 + 0.4));
+            const offline = memberCount - online;
+
+            memberChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                    data: {
+                    labels: ['Online', 'Offline'],
+                        datasets: [{
+                        label: 'Members',
+                        data: [online, offline],
+                        backgroundColor: [
+                            '#4CAF50',
+                            '#555'
+                        ],
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
+                        borderWidth: 4,
+                        hoverBorderWidth: 6
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 12 },
+                            padding: 10,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = ((value / total) * 100).toFixed(1);
+                                    return `${label}: ${value.toLocaleString()} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    },
+                    cutout: '75%'
+                }
+            });
+        }
+
+        // Load and handle server configuration
+        async function loadServerConfig(guildId) {
+            if (!guildId) {
+                // No guild selected, disable all toggles
+                updateToggleSwitches({
+                    welcomeMessages: false,
+                    autoRoles: false,
+                    moderationLogs: false,
+                    musicModule: false,
+                    antiSpam: false,
+                    antiRaid: false
+                });
+                
+                // Disable all toggle switches
+                document.querySelectorAll('input[data-setting]').forEach(toggle => {
+                    toggle.disabled = true;
+                });
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/server/${guildId}/config`);
+                const config = await response.json();
+                
+                if (response.ok) {
+                    // Update toggle switches with real config
+                    updateToggleSwitches(config);
+                    
+                    // Enable all toggle switches
+                    document.querySelectorAll('input[data-setting]').forEach(toggle => {
+                        toggle.disabled = false;
+                    });
+                } else {
+                    console.error('Failed to fetch server config:', config.error);
+                    // Use default config
+                    updateToggleSwitches({
+                        welcomeMessages: true,
+                        autoRoles: false,
+                        moderationLogs: true,
+                        musicModule: true,
+                        antiSpam: true,
+                        antiRaid: true
+                    });
+                    
+                    // Enable all toggle switches
+                    document.querySelectorAll('input[data-setting]').forEach(toggle => {
+                        toggle.disabled = false;
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching server config:', error);
+                // Use default config
+                updateToggleSwitches({
+                    welcomeMessages: true,
+                    autoRoles: false,
+                    moderationLogs: true,
+                    musicModule: true,
+                    antiSpam: true,
+                    antiRaid: true
+                });
+                
+                // Enable all toggle switches
+                document.querySelectorAll('input[data-setting]').forEach(toggle => {
+                    toggle.disabled = false;
+                });
+            }
+        }
+
+        function updateToggleSwitches(config) {
+            // Update each toggle switch based on data-setting attribute
+            const toggles = {
+                'welcomeMessages': config.welcomeMessages,
+                'autoRole': config.autoRoles,
+                'modLogs': config.moderationLogs,
+                'music': config.musicModule,
+                'antiSpam': config.antiSpam,
+                'antiRaid': config.antiRaid
+            };
+
+            // Find toggle switches by their data-setting attribute
+            Object.keys(toggles).forEach(setting => {
+                const toggle = document.querySelector(`[data-setting="${setting}"]`);
+                if (toggle) {
+                    toggle.checked = toggles[setting];
+                }
+            });
+        }
+
+        // Handle toggle switch changes
+        function setupToggleHandlers() {
+            const toggles = document.querySelectorAll('input[data-setting]');
+            const serverDropdown = document.querySelector('.server-select');
+            
+            toggles.forEach(toggle => {
+                toggle.addEventListener('change', async function() {
+                    const guildId = serverDropdown.value;
+                    if (!guildId) {
+                        showNotification('Please select a server first', 'warning');
+                        this.checked = !this.checked; // Revert the toggle
+                        return;
+                    }
+
+                    const setting = this.getAttribute('data-setting');
+                    if (!setting) {
+                        console.error('Toggle switch missing data-setting attribute');
+                        return;
+                    }
+
+                    // Get current config from all toggles
+                    const config = {
+                        welcomeMessages: document.querySelector('[data-setting="welcomeMessages"]')?.checked || false,
+                        autoRoles: document.querySelector('[data-setting="autoRole"]')?.checked || false,
+                        moderationLogs: document.querySelector('[data-setting="modLogs"]')?.checked || false,
+                        musicModule: document.querySelector('[data-setting="music"]')?.checked || false,
+                        antiSpam: document.querySelector('[data-setting="antiSpam"]')?.checked || false,
+                        antiRaid: document.querySelector('[data-setting="antiRaid"]')?.checked || false
+                    };
+
+                    try {
+                        const response = await fetch(`/api/server/${guildId}/config`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(config)
+                        });
+
+                        const result = await response.json();
+                        
+                        if (response.ok) {
+                            showNotification(`${setting} ${this.checked ? 'enabled' : 'disabled'} successfully!`, 'success');
+                        } else {
+                            showNotification('Failed to update configuration', 'error');
+                            // Revert the toggle
+                            this.checked = !this.checked;
+                        }
+                    } catch (error) {
+                        console.error('Error updating config:', error);
+                        showNotification('Error updating configuration', 'error');
+                        // Revert the toggle
+                        this.checked = !this.checked;
+                    }
+                });
+            });
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Add loading states
+        function showLoading() {
+            document.getElementById('memberCount').textContent = 'Loading...';
+            document.getElementById('roleCount').textContent = 'Loading...';
+            document.getElementById('channelCount').textContent = 'Loading...';
+        }
+
+        // Add error handling for server selection
+        serverDropdown.addEventListener('change', function() {
+            showLoading();
+            updateStats(this.value);
+            loadServerConfig(this.value);
+        });
+
+        // Initialize with loading state
+        if (initialGuildId) {
+            showLoading();
+            updateStats(initialGuildId);
+            loadServerConfig(initialGuildId);
+        }
+
+        // Setup toggle handlers
+        setupToggleHandlers();
+
+        // Add configure button functionality
+        document.querySelectorAll('.btn-secondary').forEach(btn => {
+            if (btn.textContent.includes('Configure')) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const card = this.closest('.dashboard-card');
+                    const title = card.querySelector('.card-title').textContent;
+                    showNotification(`Configuration panel for ${title} will be available soon!`, 'info');
+                });
+            }
+        });
+        });
+    </script>
+</body>
+</html>

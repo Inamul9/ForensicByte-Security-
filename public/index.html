@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUICK MAXXX - Professional Discord Bot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Background Elements - Much more subtle */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(8px); /* Much reduced from 40px */
+            opacity: 0.03; /* Much reduced from 0.3 */
+            animation: float 25s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 80px; /* Much reduced from 400px */
+            height: 80px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            top: 5%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 50px; /* Much reduced from 300px */
+            height: 50px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            top: 50%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 60px; /* Much reduced from 350px */
+            height: 60px;
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            bottom: 15%;
+            left: 15%;
+            animation-delay: -10s;
+        }
+
+        .orb-4 {
+            width: 40px; /* Much reduced from 250px */
+            height: 40px;
+            background: linear-gradient(45deg, #ffecd2, #fcb69f);
+            top: 25%;
+            right: 25%;
+            animation-delay: -15s;
+        }
+
+        .orb-5 {
+            width: 35px; /* Much reduced from 200px */
+            height: 35px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            bottom: 30%;
+            right: 5%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-4px) rotate(120deg); /* Much reduced from -40px */
+            }
+            66% {
+                transform: translateY(2px) rotate(240deg); /* Much reduced from 30px */
+            }
+        }
+
+        /* Much more subtle Glowing Grid */
+        .glow-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.004) 1px, transparent 1px), /* Much reduced from 0.03 */
+                linear-gradient(90deg, rgba(255, 255, 255, 0.004) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 40s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(60px, 60px);
+            }
+        }
+
+        /* Much more subtle Enhanced Hero Section */
+        .hero {
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.008) 0%, rgba(255, 255, 255, 0.003) 100%); /* Much reduced from 0.05/0.02 */
+            backdrop-filter: blur(4px); /* Much reduced from 10px */
+            z-index: -1;
+        }
+
+        .hero-title {
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.03); /* Much reduced from 30px 0.5 */
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 3px rgba(255, 255, 255, 0.03); } /* Much reduced from 30px 0.5 */
+            100% { text-shadow: 0 0 4px rgba(255, 255, 255, 0.05); } /* Much reduced from 50px 0.8 */
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #a8edea, #fed6e3);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-description {
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.02); /* Much reduced from 15px 0.3 */
+        }
+
+        .bot-avatar {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bot-avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(76, 205, 196, 0.05), transparent); /* Much reduced from 0.3 */
+            animation: rotate 8s linear infinite;
+        }
+
+        .bot-avatar i {
+            text-shadow: 0 0 3px rgba(76, 205, 196, 0.08); /* Much reduced from 30px 0.8 */
+            animation: botPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes botPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.01); } /* Much reduced from 1.05 */
+        }
+
+        /* Much more subtle Enhanced Feature Cards */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.008); /* Much reduced from 0.05 */
+            backdrop-filter: blur(4px); /* Much reduced from 20px */
+            border: 1px solid rgba(255, 255, 255, 0.02); /* Much reduced from 0.1 */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Much reduced from 8px 32px 0.1 */
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent); /* Much reduced from 0.1 */
+            transition: left 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-1px) scale(1.002); /* Much reduced from -10px 1.02 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Much reduced from 20px 40px 0.2 */
+            border-color: rgba(255, 255, 255, 0.04); /* Much reduced from 0.2 */
+        }
+
+        .feature-icon {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-icon i {
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.08); /* Much reduced from 20px 0.6 */
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon i {
+            transform: rotate(360deg) scale(1.01); /* Much reduced from 1.2 */
+            text-shadow: 0 0 3px rgba(76, 205, 196, 0.12); /* Much reduced from 30px 0.9 */
+        }
+
+        .feature-card h3 {
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.02); /* Much reduced from 10px 0.3 */
+        }
+
+        /* Much more subtle Enhanced Command Cards */
+        .command-card {
+            background: rgba(255, 255, 255, 0.008); /* Much reduced from 0.05 */
+            backdrop-filter: blur(4px); /* Much reduced from 15px */
+            border: 1px solid rgba(255, 255, 255, 0.02); /* Much reduced from 0.1 */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Much reduced from 6px 25px 0.1 */
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px; /* Much reduced from 2px */
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #a8edea);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .command-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .command-card:hover {
+            transform: translateY(-1px); /* Much reduced from -5px */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Much reduced from 15px 35px 0.15 */
+            border-color: rgba(255, 255, 255, 0.04); /* Much reduced from 0.2 */
+        }
+
+        .command-header i {
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.05); /* Much reduced from 15px 0.5 */
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover .command-header i {
+            transform: scale(1.01); /* Much reduced from 1.2 */
+            text-shadow: 0 0 3px rgba(76, 205, 196, 0.08); /* Much reduced from 25px 0.8 */
+        }
+
+        /* Much more subtle Enhanced Stats Section */
+        .stats {
+            background: rgba(255, 255, 255, 0.005); /* Much reduced from 0.02 */
+            backdrop-filter: blur(4px); /* Much reduced from 10px */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.008), transparent); /* Much reduced from 0.03 */
+            animation: statsShimmer 6s ease-in-out infinite;
+        }
+
+        @keyframes statsShimmer {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.008); /* Much reduced from 0.05 */
+            backdrop-filter: blur(4px); /* Much reduced from 20px */
+            border: 1px solid rgba(255, 255, 255, 0.02); /* Much reduced from 0.1 */
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); /* Much reduced from 8px 32px 0.1 */
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.008), transparent); /* Much reduced from 0.05 */
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-1px) scale(1.002); /* Much reduced from -8px 1.03 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Much reduced from 20px 40px 0.2 */
+            border-color: rgba(255, 255, 255, 0.04); /* Much reduced from 0.2 */
+        }
+
+        .stat-icon i {
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.08); /* Much reduced from 20px 0.6 */
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover .stat-icon i {
+            transform: rotate(360deg) scale(1.01); /* Much reduced from 1.2 */
+            text-shadow: 0 0 3px rgba(76, 205, 196, 0.12); /* Much reduced from 30px 0.9 */
+        }
+
+        .stat-number {
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.05); /* Much reduced from 15px 0.4 */
+            animation: numberGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes numberGlow {
+            0% { text-shadow: 0 0 2px rgba(255, 255, 255, 0.05); } /* Much reduced from 15px 0.4 */
+            100% { text-shadow: 0 0 3px rgba(255, 255, 255, 0.08); } /* Much reduced from 25px 0.6 */
+        }
+
+        /* Much more subtle Enhanced CTA Section */
+        .cta {
+            background: rgba(255, 255, 255, 0.005); /* Much reduced from 0.03 */
+            backdrop-filter: blur(4px); /* Much reduced from 15px */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(76, 205, 196, 0.02), transparent); /* Much reduced from 0.1 */
+            animation: rotate 12s linear infinite;
+        }
+
+        .cta-content h2 {
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.03); /* Much reduced from 20px 0.5 */
+        }
+
+        .cta-content p {
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.02); /* Much reduced from 10px 0.3 */
+        }
+
+        /* Much more subtle Enhanced Buttons */
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent); /* Much reduced from 0.2 */
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Particle Effects */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced Section Headers */
+        .section-header h2 {
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            background: linear-gradient(45deg, #fff, #a8edea, #fed6e3);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        .section-header p {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo i {
+            text-shadow: 0 0 15px rgba(76, 205, 196, 0.6);
+        }
+
+        .social-links a {
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.2);
+            text-shadow: 0 0 15px rgba(76, 205, 196, 0.8);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .floating-orb {
+                opacity: 0.2;
+            }
+            
+            .orb-1, .orb-2, .orb-3, .orb-4, .orb-5 {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-elements">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+        <div class="floating-orb orb-4"></div>
+        <div class="floating-orb orb-5"></div>
+        <div class="glow-grid"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fab fa-discord"></i>
+                <span>QUICK MAXXX</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="/commands" class="nav-link">Commands</a></li>
+                <li><a href="#stats" class="nav-link">Stats</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+                <a href="https://discord.com/oauth2/authorize?client_id=1386396859261779988&permissions=8&integration_type=0&scope=bot&permissions=8" class="btn btn-primary">Add to Discord</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    The Ultimate <span class="gradient-text">Discord Bot</span> for Your Server
+                </h1>
+                <p class="hero-description">
+                    Enhance your Discord server with powerful moderation tools, fun games, music, and much more. 
+                    QUICK MAXXX is designed to make your server management effortless and entertaining.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://discord.com/oauth2/authorize?client_id=1386396859261779988&permissions=8&integration_type=0&scope=bot&permissions=8" class="btn btn-primary btn-large">
+                        <i class="fab fa-discord"></i>
+                        Add to Discord
+                    </a>
+                    <a href="#features" class="btn btn-outline btn-large">
+                        Learn More
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number" id="servers">1,250+</span>
+                        <span class="stat-label">Servers</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="users">45,000+</span>
+                        <span class="stat-label">Users</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="commands">25+</span>
+                        <span class="stat-label">Commands</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="bot-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose QUICK MAXXX?</h2>
+                <p>Discover the powerful features that make QUICK MAXXX the perfect choice for your Discord server</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Advanced Moderation</h3>
+                    <p>Keep your server safe with powerful moderation tools including auto-moderation, warning systems, and role management.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Music Player</h3>
+                    <p>High-quality music streaming from YouTube, Spotify, and more. Queue management and playlist support included.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <h3>Fun Games</h3>
+                    <p>Engage your community with interactive games, trivia, polls, and custom mini-games to keep everyone entertained.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analytics</h3>
+                    <p>Track server growth, user activity, and command usage with detailed analytics and insights.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Easy Setup</h3>
+                    <p>Simple configuration with a user-friendly dashboard. No technical knowledge required to get started.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24/7 Uptime</h3>
+                    <p>Reliable hosting with 99.9% uptime guarantee. Your bot will always be there when you need it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commands Preview -->
+    <section id="commands" class="commands-preview">
+        <div class="container">
+            <div class="section-header">
+                <h2>Popular Commands</h2>
+                <p>Explore some of our most used commands</p>
+            </div>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-header">
+                        <i class="fas fa-music"></i>
+                        <span>/play</span>
+                    </div>
+                    <p>Play music from YouTube, Spotify, or SoundCloud</p>
+                </div>
+                <div class="command-card">
+                    <div class="command-header">
+                        <i class="fas fa-ban"></i>
+                        <span>/ban</span>
+                    </div>
+                    <p>Ban users with customizable duration and reason</p>
+                </div>
+                <div class="command-card">
+                    <div class="command-header">
+                        <i class="fas fa-poll-h"></i>
+                        <span>/poll</span>
+                    </div>
+                    <p>Create interactive polls with multiple options</p>
+                </div>
+                <div class="command-card">
+                    <div class="command-header">
+                        <i class="fas fa-dice"></i>
+                        <span>/roll</span>
+                    </div>
+                    <p>Roll dice with custom sides and quantities</p>
+                </div>
+            </div>
+            <div class="commands-cta">
+                <a href="/commands" class="btn btn-primary">View All Commands</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats">
+        <div class="container">
+            <div class="section-header">
+                <h2>Bot Status & Uptime</h2>
+                <p>Real-time monitoring of our services and infrastructure.</p>
+            </div>
+            <div class="status-grid">
+                <div class="status-card">
+                    <div class="status-header">
+                        <div class="status-name">
+                            <span class="status-indicator online"></span>
+                            CORE-Security.dev
+                        </div>
+                        <div class="status-tag online">Online</div>
+                    </div>
+                    <div class="status-metrics">
+                        <div class="metric">
+                            <div class="metric-value" id="uptime-1">100.00%</div>
+                            <div class="metric-label">Uptime</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value" id="response-1">290ms</div>
+                            <div class="metric-label">Response</div>
+                        </div>
+                    </div>
+                    <div class="status-bar">
+                        <div class="bar-progress" id="progress-1"></div>
+                    </div>
+                    <div class="status-history" id="history-1"></div>
+                </div>
+                <div class="status-card">
+                    <div class="status-header">
+                        <div class="status-name">
+                            <span class="status-indicator online"></span>
+                            API.core-security.dev
+                        </div>
+                        <div class="status-tag online">Online</div>
+                    </div>
+                    <div class="status-metrics">
+                        <div class="metric">
+                            <div class="metric-value" id="uptime-2">100.00%</div>
+                            <div class="metric-label">Uptime</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value" id="response-2">510ms</div>
+                            <div class="metric-label">Response</div>
+                        </div>
+                    </div>
+                    <div class="status-bar">
+                        <div class="bar-progress" id="progress-2"></div>
+                    </div>
+                    <div class="status-history" id="history-2"></div>
+                </div>
+                <div class="status-card">
+                    <div class="status-header">
+                        <div class="status-name">
+                            <span class="status-indicator online"></span>
+                            CORE-Security Node
+                        </div>
+                        <div class="status-tag online">Online</div>
+                    </div>
+                    <div class="status-metrics">
+                        <div class="metric">
+                            <div class="metric-value" id="uptime-3">100.00%</div>
+                            <div class="metric-label">Uptime</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value" id="response-3">72ms</div>
+                            <div class="metric-label">Response</div>
+                        </div>
+                    </div>
+                    <div class="status-bar">
+                        <div class="bar-progress" id="progress-3"></div>
+                    </div>
+                    <div class="status-history" id="history-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Discord Server?</h2>
+                <p>Join thousands of servers already using QUICK MAXXX to enhance their Discord experience.</p>
+                <a href="https://discord.com/oauth2/authorize?client_id=1386396859261779988&permissions=8&integration_type=0&scope=bot&permissions=8" class="btn btn-primary btn-large">
+                    <i class="fab fa-discord"></i>
+                    Add QUICK MAXXX Now
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Have questions or need support? We're here to help you succeed!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Support</h3>
+                        <p>Our dedicated support team is available around the clock to assist you with any questions or issues.</p>
+                        <a href="#" class="contact-link">Join Support Server</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Documentation</h3>
+                        <p>Comprehensive guides and tutorials to help you set up and configure QUICK MAXXX for your server.</p>
+                        <a href="#" class="contact-link">Read Documentation</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Connect with other server owners and share tips, tricks, and best practices in our community.</p>
+                        <a href="#" class="contact-link">Join Community</a>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select Subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="feature">Feature Request</option>
+                                    <option value="bug">Bug Report</option>
+                                    <option value="partnership">Partnership</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fab fa-discord"></i>
+                        <span>QUICK MAXXX</span>
+                    </div>
+                    <p>The ultimate Discord bot for modern servers. Built with love and powered by cutting-edge technology.</p>
+                    <div class="social-links">
+                        <a href="https://discord.com/" target="_blank" aria-label="Discord" class="social-link">
+                            <i class="fab fa-discord"></i>
+                            <span>Discord</span>
+                        </a>
+                        <a href="https://github.com/" target="_blank" aria-label="Github" class="social-link">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="https://youtube.com/" target="_blank" aria-label="Youtube" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="/commands">Commands</a></li>
+                        <li><a href="#stats">Stats</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Discord Server</a></li>
+                        <li><a href="#">Status Page</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">DMCA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 QUICK MAXXX. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 80;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commands - QUICK MAXXX</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Background Elements - Much more subtle */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(8px); /* Much reduced from 40px */
+            opacity: 0.03; /* Much reduced from 0.3 */
+            animation: float 25s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 70px; /* Much reduced from 350px */
+            height: 70px;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            top: 8%;
+            left: 8%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 55px; /* Much reduced from 280px */
+            height: 55px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            top: 55%;
+            right: 12%;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 65px; /* Much reduced from 320px */
+            height: 65px;
+            background: linear-gradient(45deg, #a8edea, #fed6e3);
+            bottom: 18%;
+            left: 18%;
+            animation-delay: -10s;
+        }
+
+        .orb-4 {
+            width: 45px; /* Much reduced from 220px */
+            height: 45px;
+            background: linear-gradient(45deg, #ffecd2, #fcb69f);
+            top: 28%;
+            right: 28%;
+            animation-delay: -15s;
+        }
+
+        .orb-5 {
+            width: 35px; /* Much reduced from 180px */
+            height: 35px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            bottom: 35%;
+            right: 8%;
+            animation-delay: -7s;
+        }
+
+        .orb-6 {
+            width: 50px; /* Much reduced from 250px */
+            height: 50px;
+            background: linear-gradient(45deg, #f093fb, #f5576c);
+            top: 70%;
+            left: 5%;
+            animation-delay: -12s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-3px) rotate(120deg); /* Much reduced from -35px */
+            }
+            66% {
+                transform: translateY(2px) rotate(240deg); /* Much reduced from 25px */
+            }
+        }
+
+        /* Much more subtle Glowing Grid */
+        .glow-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.004) 1px, transparent 1px), /* Much reduced from 0.03 */
+                linear-gradient(90deg, rgba(255, 255, 255, 0.004) 1px, transparent 1px);
+            background-size: 55px 55px;
+            animation: gridMove 35s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(55px, 55px);
+            }
+        }
+
+        /* Much more subtle Enhanced Commands Page */
+        .commands-page {
+            padding: 120px 0 80px;
+            background: transparent;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .commands-page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.008) 0%, rgba(255, 255, 255, 0.003) 100%); /* Much reduced from 0.03/0.01 */
+            backdrop-filter: blur(4px); /* Much reduced from 8px */
+            z-index: -1;
+        }
+        
+        .commands-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .commands-header h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.03); /* Much reduced from 25px 0.5 */
+            background: linear-gradient(45deg, #fff, #a8edea, #fed6e3);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .commands-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.02); /* Much reduced from 10px 0.2 */
+        }
+        
+        .command-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .category-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--primary-color);
+            background: rgba(255, 255, 255, 0.008); /* Much reduced from 0.05 */
+            backdrop-filter: blur(4px); /* Much reduced from 15px */
+            color: var(--primary-color);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent); /* Much reduced from 0.1 */
+            transition: left 0.5s ease;
+        }
+
+        .category-btn:hover::before {
+            left: 100%;
+        }
+
+        .category-btn:hover {
+            transform: translateY(-1px); /* Much reduced from -3px */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Much reduced from 8px 16px 0.1 */
+            border-color: rgba(76, 205, 196, 0.6);
+        }
+
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 0 3px rgba(76, 205, 196, 0.1); /* Much reduced from 0.3 */
+        }
+        
+        .commands-section {
+            display: none;
+        }
+        
+        .commands-section.active {
+            display: block;
+        }
+        
+        .commands-section.active {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .command-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4, #a8edea, #fed6e3);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .command-item:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .command-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .command-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .command-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .command-category {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(76, 205, 196, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .command-item:hover .command-category {
+            box-shadow: 0 0 25px rgba(76, 205, 196, 0.8);
+            transform: scale(1.05);
+        }
+        
+        .command-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+        }
+        
+        .command-usage {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 0 15px rgba(76, 205, 196, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .command-item:hover .command-usage {
+            box-shadow: 0 0 25px rgba(76, 205, 196, 0.4);
+            transform: translateX(5px);
+        }
+        
+        .command-examples {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .example {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(76, 205, 196, 0.2), transparent);
+            transition: left 0.4s ease;
+        }
+
+        .example:hover::before {
+            left: 100%;
+        }
+        
+        .example:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(76, 205, 196, 0.3);
+        }
+        
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            color: var(--text-primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 25px rgba(76, 205, 196, 0.4);
+            transform: scale(1.02);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--border-color);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: searchPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes searchPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo i {
+            text-shadow: 0 0 15px rgba(76, 205, 196, 0.6);
+        }
+
+        .social-links a {
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.2);
+            text-shadow: 0 0 15px rgba(76, 205, 196, 0.8);
+        }
+
+        /* Enhanced Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.005);
+            backdrop-filter: blur(4px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.008) 0%, rgba(255, 255, 255, 0.003) 100%);
+            z-index: -1;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.008);
+            backdrop-filter: blur(4px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.02), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .contact-card:hover::before {
+            left: 100%;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-color-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 3px rgba(76, 205, 196, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover .contact-icon {
+            transform: scale(1.05);
+            box-shadow: 0 0 6px rgba(76, 205, 196, 0.08);
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.01);
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .contact-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 1px rgba(76, 205, 196, 0.05);
+        }
+
+        .contact-link:hover {
+            color: var(--primary-color-light);
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.08);
+        }
+
+        /* Contact Form */
+        .contact-form-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.008);
+            backdrop-filter: blur(4px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            max-width: 500px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .contact-form h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.01);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.005);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 2px rgba(76, 205, 196, 0.05);
+            background: rgba(255, 255, 255, 0.008);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: var(--background-primary);
+            color: var(--text-primary);
+        }
+
+        /* Enhanced Footer Styles */
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.05);
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.003);
+            border: 1px solid rgba(255, 255, 255, 0.01);
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .social-link:hover {
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.005);
+            border-color: rgba(255, 255, 255, 0.02);
+            transform: translateX(5px);
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.05);
+        }
+
+        .social-link i {
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            padding-top: 2rem;
+        }
+
+        .footer-bottom-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: var(--text-secondary);
+            margin: 0;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-bottom-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--primary-color);
+            text-shadow: 0 0 2px rgba(76, 205, 196, 0.05);
+        }
+
+        .separator {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        /* Notification System */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.008);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .notification i:first-child {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .notification span {
+            flex: 1;
+            line-height: 1.4;
+            text-shadow: 0 0 1px rgba(255, 255, 255, 0.005);
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .notification-close:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.005);
+        }
+
+        /* Notification Types */
+        .notification-success {
+            border-left: 4px solid #10b981;
+        }
+
+        .notification-success i:first-child {
+            color: #10b981;
+        }
+
+        .notification-error {
+            border-left: 4px solid #ef4444;
+        }
+
+        .notification-error i:first-child {
+            color: #ef4444;
+        }
+
+        .notification-warning {
+            border-left: 4px solid #f59e0b;
+        }
+
+        .notification-warning i:first-child {
+            color: #f59e0b;
+        }
+
+        .notification-info {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .notification-info i:first-child {
+            color: var(--primary-color);
+        }
+
+        /* Loading Spinner */
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Responsive design for mobile */
+        @media (max-width: 768px) {
+            .commands-section.active {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .command-categories {
+                gap: 0.5rem;
+            }
+            
+            .category-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .floating-orb {
+                opacity: 0.2;
+            }
+            
+            .orb-1, .orb-2, .orb-3, .orb-4, .orb-5, .orb-6 {
+                width: 150px;
+                height: 150px;
+            }
+
+            /* Contact Section Responsive */
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-bottom-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-info {
+                order: 2;
+            }
+            
+            .contact-form-container {
+                order: 1;
+            }
+        }
+
+        /* Particle Effects */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: particleFloat 18s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="background-elements">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+        <div class="floating-orb orb-4"></div>
+        <div class="floating-orb orb-5"></div>
+        <div class="floating-orb orb-6"></div>
+        <div class="glow-grid"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fab fa-discord"></i>
+                <span>QUICK MAXXX</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Home</a></li>
+                <li><a href="/#features" class="nav-link">Features</a></li>
+                <li><a href="/commands" class="nav-link active">Commands</a></li>
+                <li><a href="/#stats" class="nav-link">Stats</a></li>
+                <li><a href="/#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <a href="/dashboard" class="btn btn-secondary">Dashboard</a>
+                <a href="https://discord.com/oauth2/authorize?client_id=1371694773374812271&permissions=8&integration_type=0&scope=bot" class="btn btn-primary">Add to Discord</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Commands Page -->
+    <section class="commands-page">
+        <div class="container">
+            <div class="commands-header">
+                <h1>Bot Commands</h1>
+                <p>Explore all the powerful commands available in QUICK MAXXX. From moderation to entertainment, we've got everything you need.</p>
+            </div>
+
+            <!-- Search Box -->
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search commands..." id="searchInput">
+            </div>
+
+            <!-- Category Buttons -->
+            <div class="command-categories">
+                <button class="category-btn active" data-category="all">All Commands</button>
+                <button class="category-btn" data-category="moderation">Moderation</button>
+                <button class="category-btn" data-category="music">Music</button>
+                <button class="category-btn" data-category="fun">Fun & Games</button>
+                <button class="category-btn" data-category="utility">Utility</button>
+                <button class="category-btn" data-category="admin">Admin</button>
+            </div>
+
+            <!-- All Commands Section -->
+            <div class="commands-section active" id="all-commands">
+                <div class="command-item" data-category="moderation">
+                    <div class="command-header">
+                        <span class="command-name">/ban</span>
+                        <span class="command-category">Moderation</span>
+                    </div>
+                    <div class="command-description">
+                        Ban a user from the server with optional duration and reason.
+                    </div>
+                    <div class="command-usage">
+                        /ban user:@username duration:7d reason:Breaking rules
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/ban @user</span>
+                        <span class="example">/ban @user 24h</span>
+                        <span class="example">/ban @user 7d Spam</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="moderation">
+                    <div class="command-header">
+                        <span class="command-name">/kick</span>
+                        <span class="command-category">Moderation</span>
+                    </div>
+                    <div class="command-description">
+                        Kick a user from the server. They can rejoin with an invite.
+                    </div>
+                    <div class="command-usage">
+                        /kick user:@username reason:Optional reason
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/kick @user</span>
+                        <span class="example">/kick @user Being rude</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="moderation">
+                    <div class="command-header">
+                        <span class="command-name">/mute</span>
+                        <span class="command-category">Moderation</span>
+                    </div>
+                    <div class="command-description">
+                        Mute a user temporarily or permanently.
+                    </div>
+                    <div class="command-usage">
+                        /mute user:@username duration:1h reason:Spam
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/mute @user 30m</span>
+                        <span class="example">/mute @user 2h Spam</span>
+                        <span class="example">/mute @user permanent</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="music">
+                    <div class="command-header">
+                        <span class="command-name">/play</span>
+                        <span class="command-category">Music</span>
+                    </div>
+                    <div class="command-description">
+                        Play music from YouTube, Spotify, or SoundCloud.
+                    </div>
+                    <div class="command-usage">
+                        /play query:song name or URL
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/play despacito</span>
+                        <span class="example">/play https://youtube.com/...</span>
+                        <span class="example">/play spotify:track:...</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="music">
+                    <div class="command-header">
+                        <span class="command-name">/skip</span>
+                        <span class="command-category">Music</span>
+                    </div>
+                    <div class="command-description">
+                        Skip the current song in the queue.
+                    </div>
+                    <div class="command-usage">
+                        /skip
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/skip</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="music">
+                    <div class="command-header">
+                        <span class="command-name">/queue</span>
+                        <span class="command-category">Music</span>
+                    </div>
+                    <div class="command-description">
+                        Display the current music queue.
+                    </div>
+                    <div class="command-usage">
+                        /queue
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/queue</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="fun">
+                    <div class="command-header">
+                        <span class="command-name">/poll</span>
+                        <span class="command-category">Fun & Games</span>
+                    </div>
+                    <div class="command-description">
+                        Create an interactive poll with multiple options.
+                    </div>
+                    <div class="command-usage">
+                        /poll question:What's your favorite color? options:Red,Blue,Green
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/poll "Best game?" "Minecraft" "Fortnite" "Among Us"</span>
+                        <span class="example">/poll "Pizza toppings?" "Pepperoni" "Cheese" "Veggie"</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="fun">
+                    <div class="command-header">
+                        <span class="command-name">/roll</span>
+                        <span class="command-category">Fun & Games</span>
+                    </div>
+                    <div class="command-description">
+                        Roll dice with custom sides and quantities.
+                    </div>
+                    <div class="command-usage">
+                        /roll dice:2d20
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/roll 1d6</span>
+                        <span class="example">/roll 2d20</span>
+                        <span class="example">/roll 4d6</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="fun">
+                    <div class="command-header">
+                        <span class="command-name">/8ball</span>
+                        <span class="command-category">Fun & Games</span>
+                    </div>
+                    <div class="command-description">
+                        Ask the magic 8-ball a question and get a random response.
+                    </div>
+                    <div class="command-usage">
+                        /8ball question:Will I win the lottery?
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/8ball "Am I awesome?"</span>
+                        <span class="example">/8ball "Should I study?"</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="utility">
+                    <div class="command-header">
+                        <span class="command-name">/ping</span>
+                        <span class="command-category">Utility</span>
+                    </div>
+                    <div class="command-description">
+                        Check the bot's latency and response time.
+                    </div>
+                    <div class="command-usage">
+                        /ping
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/ping</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="utility">
+                    <div class="command-header">
+                        <span class="command-name">/serverinfo</span>
+                        <span class="command-category">Utility</span>
+                    </div>
+                    <div class="command-description">
+                        Display detailed information about the server.
+                    </div>
+                    <div class="command-usage">
+                        /serverinfo
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/serverinfo</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="utility">
+                    <div class="command-header">
+                        <span class="command-name">/userinfo</span>
+                        <span class="command-category">Utility</span>
+                    </div>
+                    <div class="command-description">
+                        Display information about a user or yourself.
+                    </div>
+                    <div class="command-usage">
+                        /userinfo user:@username
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/userinfo</span>
+                        <span class="example">/userinfo @user</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="admin">
+                    <div class="command-header">
+                        <span class="command-name">/setup</span>
+                        <span class="command-category">Admin</span>
+                    </div>
+                    <div class="command-description">
+                        Interactive setup wizard for configuring the bot.
+                    </div>
+                    <div class="command-usage">
+                        /setup
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/setup</span>
+                    </div>
+                </div>
+
+                <div class="command-item" data-category="admin">
+                    <div class="command-header">
+                        <span class="command-name">/prefix</span>
+                        <span class="command-category">Admin</span>
+                    </div>
+                    <div class="command-description">
+                        Change the bot's prefix for this server.
+                    </div>
+                    <div class="command-usage">
+                        /prefix new_prefix:!
+                    </div>
+                    <div class="command-examples">
+                        <span class="example">/prefix !</span>
+                        <span class="example">/prefix ?</span>
+                    </div>
+                </div>
+            </div>
+            <div class="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>No commands found</h3>
+                <p>Try adjusting your search or category filter.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Have questions or need support? We're here to help you succeed!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Support</h3>
+                        <p>Our dedicated support team is available around the clock to assist you with any questions or issues.</p>
+                        <a href="#" class="contact-link">Join Support Server</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Documentation</h3>
+                        <p>Comprehensive guides and tutorials to help you set up and configure QUICK MAXXX for your server.</p>
+                        <a href="#" class="contact-link">Read Documentation</a>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Community</h3>
+                        <p>Connect with other server owners and share tips, tricks, and best practices in our community.</p>
+                        <a href="#" class="contact-link">Join Community</a>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <div class="contact-form">
+                        <h3>Send us a Message</h3>
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group">
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select Subject</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="support">Technical Support</option>
+                                    <option value="feature">Feature Request</option>
+                                    <option value="bug">Bug Report</option>
+                                    <option value="partnership">Partnership</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fab fa-discord"></i>
+                        <span>QUICK MAXXX</span>
+                    </div>
+                    <p>The ultimate Discord bot for modern servers. Built with love and powered by cutting-edge technology.</p>
+                    <div class="social-links">
+                        <a href="https://discord.com/" target="_blank" aria-label="Discord" class="social-link">
+                            <i class="fab fa-discord"></i>
+                            <span>Discord</span>
+                        </a>
+                        <a href="https://github.com/" target="_blank" aria-label="Github" class="social-link">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://twitter.com/" target="_blank" aria-label="Twitter" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="https://youtube.com/" target="_blank" aria-label="Youtube" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/#features">Features</a></li>
+                        <li><a href="/commands">Commands</a></li>
+                        <li><a href="/#stats">Stats</a></li>
+                        <li><a href="/dashboard">Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Discord Server</a></li>
+                        <li><a href="#">Status Page</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">DMCA</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2024 QUICK MAXXX. All rights reserved.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 60;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 18 + 's';
+                particle.style.animationDuration = (Math.random() * 12 + 12) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Load commands from bot API
+        async function loadCommands() {
+            try {
+                const response = await fetch('/api/commands');
+                const commands = await response.json();
+                
+                if (response.ok) {
+                    renderCommands(commands);
+                } else {
+                    console.error('Failed to fetch commands:', commands.error);
+                    // Fallback to static commands if API fails
+                    loadStaticCommands();
+                }
+            } catch (error) {
+                console.error('Error fetching commands:', error);
+                // Fallback to static commands if network error
+                loadStaticCommands();
+            }
+        }
+
+        // Render commands dynamically
+        function renderCommands(commands) {
+            const commandsContainer = document.querySelector('.commands-grid');
+            commandsContainer.innerHTML = '';
+
+            commands.forEach(command => {
+                const commandElement = createCommandElement(command);
+                commandsContainer.appendChild(commandElement);
+            });
+
+            // Re-initialize click handlers for examples
+            document.querySelectorAll('.example').forEach(example => {
+                example.addEventListener('click', function() {
+                    navigator.clipboard.writeText(this.textContent).then(() => {
+                        const originalText = this.textContent;
+                        this.textContent = 'Copied!';
+                        this.style.color = '#4CAF50';
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.style.color = '';
+                        }, 2000);
+                    });
+                });
+            });
+        }
+
+        // Create command element
+        function createCommandElement(command) {
+            const div = document.createElement('div');
+            div.className = 'command-item';
+            div.setAttribute('data-category', command.category.toLowerCase());
+            
+            div.innerHTML = `
+                <div class="command-header">
+                    <span class="command-name">/${command.name}</span>
+                    <span class="command-category">${command.category}</span>
+                </div>
+                <div class="command-description">
+                    ${command.description}
+                </div>
+                <div class="command-usage">
+                    ${command.usage}
+                </div>
+                <div class="command-examples">
+                    <span class="example">${command.usage}</span>
+                    ${command.aliases.length > 0 ? `<span class="example">/${command.aliases[0]}</span>` : ''}
+                </div>
+            `;
+            
+            return div;
+        }
+
+        // Fallback to static commands
+        function loadStaticCommands() {
+            console.log('Using static commands as fallback');
+            // The existing static commands will remain in the HTML
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            loadCommands(); // Load commands from API first
+            initCommandsPage();
+            initContactForm(); // Initialize contact form
+        });
+
+        function initCommandsPage() {
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const searchInput = document.getElementById('searchInput');
+
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterCommands(category, searchInput.value);
+                });
+            });
+
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const activeCategory = document.querySelector('.category-btn.active')?.getAttribute('data-category') || 'all';
+                filterCommands(activeCategory, searchTerm);
+            });
+
+            // Initialize example click handlers
+            document.querySelectorAll('.example').forEach(example => {
+                example.addEventListener('click', function() {
+                    navigator.clipboard.writeText(this.textContent).then(() => {
+                        const originalText = this.textContent;
+                        this.textContent = 'Copied!';
+                        this.style.color = '#4CAF50';
+                        setTimeout(() => {
+                            this.textContent = originalText;
+                            this.style.color = '';
+                        }, 2000);
+                    });
+                });
+            });
+        }
+
+        function filterCommands(category, searchTerm) {
+            const commandItems = document.querySelectorAll('.command-item');
+            const noResults = document.querySelector('.no-results');
+            let visibleCount = 0;
+
+            commandItems.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                const itemText = item.textContent.toLowerCase();
+                const matchesCategory = category === 'all' || itemCategory === category;
+                const matchesSearch = searchTerm === '' || itemText.includes(searchTerm);
+
+                if (matchesCategory && matchesSearch) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Contact Form Handling
+        function initContactForm() {
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Get form data
+                    const formData = new FormData(contactForm);
+                    const name = formData.get('name');
+                    const email = formData.get('email');
+                    const subject = formData.get('subject');
+                    const message = formData.get('message');
+                    
+                    // Basic validation
+                    if (!name || !email || !subject || !message) {
+                        showNotification('Please fill in all fields', 'error');
+                        return;
+                    }
+                    
+                    if (!isValidEmail(email)) {
+                        showNotification('Please enter a valid email address', 'error');
+                        return;
+                    }
+                    
+                    // Show loading state
+                    const submitBtn = contactForm.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                    submitBtn.disabled = true;
+                    
+                    // Simulate form submission (replace with actual API call)
+                    setTimeout(() => {
+                        showNotification('Thank you! Your message has been sent successfully. We\'ll get back to you soon!', 'success');
+                        contactForm.reset();
+                        
+                        // Reset button
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                    }, 2000);
+                });
+            }
+        }
+
+        // Email validation helper
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            const existingNotifications = document.querySelectorAll('.notification');
+            existingNotifications.forEach(notification => notification.remove());
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas ${getNotificationIcon(type)}"></i>
+                    <span>${message}</span>
+                    <button class="notification-close" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Show animation
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 5000);
+        }
+
+        function getNotificationIcon(type) {
+            switch (type) {
+                case 'success': return 'fa-check-circle';
+                case 'error': return 'fa-exclamation-circle';
+                case 'warning': return 'fa-exclamation-triangle';
+                default: return 'fa-info-circle';
+            }
+        }
+    </script>
+</body>
+</html> 

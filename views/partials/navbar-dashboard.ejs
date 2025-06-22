@@ -1,0 +1,24 @@
+<!-- In a real app, this would be more dynamic -->
+<nav class="navbar dashboard-navbar">
+    <div class="nav-container">
+        <div class="dashboard-breadcrumbs">
+            <a href="/dashboard">Dashboard</a>
+            <% if (currentGuild) { %>
+                <span>/</span>
+                <a><%= currentGuild.name %></a>
+            <% } %>
+        </div>
+        <div class="nav-buttons">
+            <a href="/" class="btn btn-secondary"><i class="fas fa-home"></i> Back to Site</a>
+            <div class="theme-toggle">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</nav> 
