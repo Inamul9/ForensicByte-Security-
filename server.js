@@ -733,7 +733,7 @@ async function startServer() {
             
             // Start the web server without bot
             app.listen(PORT, () => {
-                console.log(`🌐 QUICK MAXXX website server running at http://localhost:${PORT}`);
+                console.log(`🌐 ForensicByte | Security™X website server running at http://localhost:${PORT}`);
                 console.log(`🤖 Bot integration: DISABLED (demo mode)`);
                 
                 // Set demo stats
@@ -753,7 +753,7 @@ async function startServer() {
         
         // Start the web server
         app.listen(PORT, () => {
-            console.log(`🌐 QUICK MAXXX website server running at http://localhost:${PORT}`);
+            console.log(`🌐 ForensicByte | Security™X website server running at http://localhost:${PORT}`);
             console.log(`🤖 Bot connected successfully!`);
             
             // Initial stats update
@@ -770,7 +770,7 @@ async function startServer() {
         // Start server in demo mode even if bot fails
         console.log('🔄 Starting server in demo mode...');
         app.listen(PORT, () => {
-            console.log(`🌐 QUICK MAXXX website server running at http://localhost:${PORT}`);
+            console.log(`🌐 ForensicByte | Security™X website server running at http://localhost:${PORT}`);
             console.log(`🤖 Bot integration: DISABLED (demo mode)`);
             
             // Set demo stats
