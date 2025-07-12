@@ -256,7 +256,7 @@ passport.deserializeUser((obj, done) => done(null, obj));
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID || '1371694773374812271',
     clientSecret: process.env.DISCORD_CLIENT_SECRET || 'llsVgNeYm0UZJpNnlnDqWDlLN2RijJbu',
-    callbackURL: process.env.DISCORD_CALLBACK_URL || `http://localhost:${PORT}/auth/discord/callback`,
+    callbackURL: process.env.DISCORD_CALLBACK_URL || `https://forensicbyte-security.onrender.com:${PORT}/auth/discord/callback`,
     scope: ['identify', 'guilds']
 }, (accessToken, refreshToken, profile, done) => {
     // In a real app, you'd find or create a user in your database here
@@ -733,7 +733,7 @@ async function startServer() {
             
             // Start the web server without bot
             app.listen(PORT, () => {
-                console.log(`🌐 ForensicByte | Security™X website server running at http://localhost:${PORT}`);
+                console.log(`🌐 ForensicByte | Security™X website server running at https://forensicbyte-security.onrender.com:${PORT}`);
                 console.log(`🤖 Bot integration: DISABLED (demo mode)`);
                 
                 // Set demo stats
@@ -753,7 +753,7 @@ async function startServer() {
         
         // Start the web server
         app.listen(PORT, () => {
-            console.log(`🌐 ForensicByte | Security™X website server running at http://localhost:${PORT}`);
+            console.log(`🌐 ForensicByte | Security™X website server running at https://forensicbyte-security.onrender.com:${PORT}`);
             console.log(`🤖 Bot connected successfully!`);
             
             // Initial stats update
@@ -770,7 +770,7 @@ async function startServer() {
         // Start server in demo mode even if bot fails
         console.log('🔄 Starting server in demo mode...');
         app.listen(PORT, () => {
-            console.log(`🌐 ForensicByte | Security™X website server running at http://localhost:${PORT}`);
+            console.log(`🌐 ForensicByte | Security™X website server running at https://forensicbyte-security.onrender.com:${PORT}`);
             console.log(`🤖 Bot integration: DISABLED (demo mode)`);
             
             // Set demo stats
