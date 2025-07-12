@@ -370,7 +370,7 @@ function initLoadingScreen() {
     loadingScreen.innerHTML = `
         <div style="text-align: center; color: var(--text-primary);">
             <i class="fas fa-robot" style="font-size: 4rem; margin-bottom: 1rem; opacity: 0; animation: fadeIn 1s ease-in-out forwards;"></i>
-            <h2 style="margin-bottom: 1rem; opacity: 0; animation: fadeIn 1s ease-in-out 0.3s forwards;">QUICK MAXXX</h2>
+            <h2 style="margin-bottom: 1rem; opacity: 0; animation: fadeIn 1s ease-in-out 0.3s forwards;">ForensicByte | Security™X</h2>
             <p style="opacity: 0; animation: fadeIn 1s ease-in-out 0.6s forwards;">Loading amazing features...</p>
         </div>
     `;
